@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
       @checked = params[:ratings].keys
       @movies = @movies.where(rating: params[:ratings].keys)
     end
-    if params[:sort_by] =! ""
+    if params[:sort_by]
       @movies = @movies.sort_by(&params[:sort_by].to_sym)
     end
   end
