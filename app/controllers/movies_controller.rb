@@ -2,7 +2,13 @@
 class MoviesController < ApplicationController
   def index
     @movies = Movie.all
-    if params[:sort_by]
+    @all_ratings = Movie.all_ratings
+    @checked = %w(G PG PG-13 NC-17 R)
+    if params[:ratings]
+      @checked = params[:ratings].keys
+      @movies = @movies.where(rating: params[:ratings].keys)
+    end
+    if params[:sort_by] =! ""
       @movies = @movies.sort_by(&params[:sort_by].to_sym)
     end
   end
