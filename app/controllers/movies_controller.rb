@@ -2,6 +2,9 @@
 class MoviesController < ApplicationController
   def index
     @movies = Movie.all
+    if params[:sort_by]
+      @movies = @movies.sort_by(&params[:sort_by].to_sym)
+    end
   end
 
   def show
@@ -21,7 +24,7 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title,:rating,:description,:release_date)
+    params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
   def edit
